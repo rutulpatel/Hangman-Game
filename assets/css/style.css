@@ -1,0 +1,121 @@
+.hm-container {
+    max-width: auto;
+    width: 400px;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+    align-content: center;
+    overflow: auto;
+    font-family: 'Nothing You Could Do', cursive;
+    font-weight: 700;
+    
+}
+
+#hm-help-text {
+    margin-left: 315px;
+    font-size: 30px;
+    color: red;
+    position: fixed;
+}
+
+#hm-help-line {
+    width: 75px;
+    height: 30px;
+    margin-left: 285px;
+    margin-top: 55px;
+    border-right: 4px dotted red;
+    position: fixed;   
+    -webkit-transform:
+            rotate(-135deg); 
+}
+
+#hm-horizontal-line {
+    margin-left: 125px;
+    height: 25px;
+    width: 125px;
+    border-top: 10px solid black;
+    border-right: 8px solid black;
+    position: fixed;
+}
+
+#hm-head {
+    background: black;
+    width: 75px;
+    height: 75px;
+    margin-left: 210px;
+    margin-top: 25px;
+    border: 6px solid black;
+    border-radius: 50%;
+    position: fixed;
+}
+
+#hm-body {
+    width: 75px;
+    height: 75px;
+    margin-left: 245px;
+    margin-top: 100px;
+    border-left: 10px solid black;
+    position: fixed;   
+}
+
+#hm-hand1 {
+    width: 75px;
+    height: 75px;
+    margin-left: 210px;
+    margin-top: 135px;
+    border-right: 10px solid black;
+    position: fixed;   
+    -webkit-transform:
+            rotate(-135deg); 
+}
+
+
+#hm-hand2 {
+    width: 75px;
+    height: 75px;
+    margin-left: 215px;
+    margin-top: 135px;
+    border-right: 10px solid black;
+    position: fixed;   
+    -webkit-transform:
+            rotate(-45deg); 
+}
+
+#hm-leg1 {
+    width: 75px;
+    height: 75px;
+    margin-left: 210px;
+    margin-top: 185px;
+    border-right: 10px solid black;
+    position: fixed;   
+    -webkit-transform:
+            rotate(-135deg); 
+}
+
+
+#hm-leg2 {
+ background: inherit;
+    width: 75px;
+    height: 75px;
+    margin-left: 215px;
+    margin-top: 185px;
+    border-right: 10px solid black;
+    position: fixed;   
+    -webkit-transform:
+            rotate(-45deg); 
+}
+
+
+#hm-stand-line {
+    margin-left: 125px;
+    height: 250px;
+    border-left: 10px solid black;
+    position: relative;
+}
+
+#hm-base-line {
+    width: 250px;
+    border-bottom: 10px solid black;
+    position: relative;
+}
+
