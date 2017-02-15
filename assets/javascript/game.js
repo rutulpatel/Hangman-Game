@@ -1,12 +1,12 @@
 //Variables definition & initiation
 var wordList = [
-    "banana",
-    "apple",
-    "guava",
-    "cherry",
-    "mango",
-    "pineapple",
-    "strawberry"
+    "BANANA",
+    "APPLE",
+    "GUAVA",
+    "CHERRY",
+    "MANGO",
+    "PINEAPPLE",
+    "STRAWBERRY"
 ];
 var secretWord = "";
 var displayedWord = "";
@@ -17,6 +17,14 @@ var atoz = "abcdefghijklmnopqrstuvwxyz";
 var guessesLeft = 9;
 var msg = "";
 var newGame = true;
+var hangmanHelpMsgList = [
+    "U KILLED ME!!!", 
+    "DO YOU HAVE ANY LAST WORDS",
+    "PLS HELP",
+    "NOT AGAIN",
+    "DUMB GUESS!",
+    "OH NO..."
+];
 
 var wordDashesID = "wordDashes";
 var msgID = "msg";
@@ -57,12 +65,11 @@ function updateHangman(guessesLeft) {
             showHangmanParts("hm-help-line", false);
         }
     } else {
-        //for (var i = (guessesLeft-1); i > guessesLeft; i--) {
-            showHangmanParts("hm-"+(9-guessesLeft), true);
-        //}
+        showHangmanParts("hm-"+(9-guessesLeft), true);
         if(guessesLeft < 6) {
             showHangmanParts("hm-help-text", true);
             showHangmanParts("hm-help-line", true);
+            updateElementById("hm-help-text", hangmanHelpMsgList[guessesLeft]);
         }
     }
 }
@@ -104,6 +111,7 @@ function updateGameCounter(isWon) {
         winCount++;
         msg = "<strong>Congrats you won!!!</strong>; press ENTER to play another game. ";
         updateElementById(msgID, msg);
+        updateElementById("hm-help-text", "YOU ARE AWESOME!!!");
     } else {
         lossCount++;
         msg = "<strong>Sorry, you lost</strong>; secret word was '" + secretWord.toUpperCase() + "'; press ENTER to play another game. ";
@@ -183,7 +191,7 @@ document.onkeyup = function(event){
     if(!newGame) {
         var letter = String.fromCharCode(event.keyCode).toLowerCase();
         if (atoz.indexOf(letter) !== -1) {
-            processInput(letter);
+            processInput(letter.toUpperCase());
         }    
     }
     
