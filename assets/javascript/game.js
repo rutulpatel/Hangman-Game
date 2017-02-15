@@ -106,7 +106,7 @@ function updateGameCounter(isWon) {
         updateElementById(msgID, msg);
     } else {
         lossCount++;
-        msg = "<strong>Sorry, you lost</strong>; press ENTER to play another game. ";
+        msg = "<strong>Sorry, you lost</strong>; secret word was '" + secretWord.toUpperCase() + "'; press ENTER to play another game. ";
         updateElementById(msgID, msg);
     }
     updateElementById(winCountID, winCount);
@@ -148,6 +148,7 @@ function updateGuessesLeft(letter) {
         updateElementById(msgID, "You already guessed '" + letter.toUpperCase() + "'");
     }
     if (guessesLeft < 1) {
+        updateElementById(guessesLeftID, guessesLeft);
         updateGameCounter(false);
     } else {
         updateElementById(guessesLeftID, guessesLeft);
@@ -179,10 +180,13 @@ document.onkeyup = function(event){
         newGame = false;
     }
     //convert key press into string and save it into a var
-    var letter = String.fromCharCode(event.keyCode).toLowerCase();
-    if (atoz.indexOf(letter) !== -1) {
-        processInput(letter);
+    if(!newGame) {
+        var letter = String.fromCharCode(event.keyCode).toLowerCase();
+        if (atoz.indexOf(letter) !== -1) {
+            processInput(letter);
+        }    
     }
+    
     
     //guessWord();
 };
