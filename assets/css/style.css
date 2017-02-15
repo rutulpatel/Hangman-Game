@@ -49,7 +49,7 @@ h1, h2, h3 {
             rotate(-135deg); 
 }
 
-#hm-horizontal-line {
+.hm-horizontal-line {
     margin-left: 40px;
     margin-top: 10px;
     height: 25px;
@@ -59,7 +59,7 @@ h1, h2, h3 {
     position: absolute;
 }
 
-#hm-head {
+.hm-head {
     width: 75px;
     height: 75px;
     margin-left: 135px;
@@ -69,7 +69,7 @@ h1, h2, h3 {
     position: absolute;
 }
 
-#hm-body {
+.hm-body {
     width: 75px;
     height: 75px;
     margin-left: 165px;
@@ -78,7 +78,7 @@ h1, h2, h3 {
     position: absolute;   
 }
 
-#hm-hand1 {
+.hm-hand1 {
     width: 75px;
     height: 75px;
     margin-left: 130px;
@@ -90,7 +90,7 @@ h1, h2, h3 {
 }
 
 
-#hm-hand2 {
+.hm-hand2 {
     width: 75px;
     height: 75px;
     margin-left: 135px;
@@ -101,7 +101,7 @@ h1, h2, h3 {
             rotate(-45deg); 
 }
 
-#hm-leg1 {
+.hm-leg1 {
     width: 75px;
     height: 75px;
     margin-left: 130px;
@@ -113,7 +113,7 @@ h1, h2, h3 {
 }
 
 
-#hm-leg2 { 
+.hm-leg2 { 
  background: inherit;
     width: 75px;
     height: 75px;
@@ -126,7 +126,7 @@ h1, h2, h3 {
 }
 
 
-#hm-stand-line {
+.hm-stand-line {
     margin-left: 50px;
     margin-top: 0px;
     height: 250px;
@@ -134,7 +134,7 @@ h1, h2, h3 {
     position: absolute;
 }
 
-#hm-base-line {
+.hm-base-line {
     width: 250px;
     margin-left: 0px;
     margin-top: 250px;
@@ -162,7 +162,7 @@ h1, h2, h3 {
     letter-spacing: 20px;
 }
 
-#guessesLeft, #guessesMade, #msg {
+#guessesLeft, #guessesMade {
     color: deepskyblue;
 }
 
@@ -170,6 +170,6 @@ h1, h2, h3 {
     color: greenyellow;
 }
 
-#lossCount {
+#lossCount, #msg {
     color: red;
 }

@@ -35,15 +35,7 @@ function showHangmanParts(id, isVisible) {
         document.getElementById(id).style.visibility = 'visible';    
     } else {
         document.getElementById(id).style.visibility = 'hidden';
-    }
-    
-}
-showHangmanParts("hm-head", true);
-/**
-    update hangman sketch
-*/
-function updateHangman() {
-    
+    }   
 }
 
 /**
@@ -51,6 +43,27 @@ function updateHangman() {
 */
 function updateElementById(id, msg) {
     document.getElementById(id).innerHTML = msg; //updates html element
+}
+
+/**
+    update hangman sketch
+*/
+function updateHangman(guessesLeft) {
+    if(guessesLeft >= 9) {
+        for (var i = 1; i <= 9; i++) {
+            showHangmanParts("hm-" + i, false);
+            showHangmanParts("hm-help-text", false);
+            showHangmanParts("hm-help-line", false);
+        }
+    } else {
+        for (var i = 9; i > guessesLeft; i--) {
+            showHangmanParts("hm-"+(i-guessesLeft), true);
+        }
+        if(guessesLeft < 6) {
+            showHangmanParts("hm-help-text", true);
+            showHangmanParts("hm-help-line", true);
+        }
+    }
 }
 
 /**
@@ -70,6 +83,7 @@ function resetGame(wordLen) {
     updateElementById(guessesMadeID, guessesMade);
     updateElementById(guessesLeftID, guessesLeft);
     updateElementById(msgID, msg + "Good luck..." );
+    updateHangman(guessesLeft);
 }
 
 /**
@@ -132,12 +146,13 @@ function updateGuessesLeft(letter) {
     } else {
         updateElementById(msgID, "You already guessed '" + letter.toUpperCase() + "'");
     }
-    if (guessesLeft < 0) {
+    if (guessesLeft < 1) {
         updateGameCounter(false);
     } else {
         updateElementById(guessesLeftID, guessesLeft);
         updateElementById(guessesMadeID, guessesMade);
     }
+    updateHangman(guessesLeft);
 }
 
 
