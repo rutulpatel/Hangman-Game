@@ -166,10 +166,10 @@ h1, h2, h3 {
     color: deepskyblue;
 }
 
-#winCount {
-    color: greenyellow;
+#winCount, #msg {
+    color: chartreuse;
 }
 
-#lossCount, #msg {
+#lossCount {
     color: red;
 }

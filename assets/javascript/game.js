@@ -16,6 +16,7 @@ var guessesMade = [];
 var atoz = "abcdefghijklmnopqrstuvwxyz";
 var guessesLeft = 9;
 var msg = "";
+var newGame = true;
 
 var wordDashesID = "wordDashes";
 var msgID = "msg";
@@ -56,9 +57,9 @@ function updateHangman(guessesLeft) {
             showHangmanParts("hm-help-line", false);
         }
     } else {
-        for (var i = 9; i > guessesLeft; i--) {
-            showHangmanParts("hm-"+(i-guessesLeft), true);
-        }
+        //for (var i = (guessesLeft-1); i > guessesLeft; i--) {
+            showHangmanParts("hm-"+(9-guessesLeft), true);
+        //}
         if(guessesLeft < 6) {
             showHangmanParts("hm-help-text", true);
             showHangmanParts("hm-help-line", true);
@@ -82,7 +83,7 @@ function resetGame(wordLen) {
     updateElementById(lossCountID, lossCount);
     updateElementById(guessesMadeID, guessesMade);
     updateElementById(guessesLeftID, guessesLeft);
-    updateElementById(msgID, msg + "Good luck..." );
+    updateElementById(msgID, "Good luck..." );
     updateHangman(guessesLeft);
 }
 
@@ -101,16 +102,16 @@ function guessWord() {
 function updateGameCounter(isWon) {
     if(isWon) {
         winCount++;
-        msg = "Congrats you won; lets play another game. ";
+        msg = "<strong>Congrats you won!!!</strong>; press ENTER to play another game. ";
         updateElementById(msgID, msg);
     } else {
         lossCount++;
-        msg = "Ohhh, you lost this one; lets play another game. ";
+        msg = "<strong>Sorry, you lost</strong>; press ENTER to play another game. ";
         updateElementById(msgID, msg);
     }
     updateElementById(winCountID, winCount);
     updateElementById(lossCountID, lossCount);
-    guessWord();
+    newGame = true;
 }
 
 /**
@@ -172,11 +173,18 @@ function processInput(letter) {
     listen to key presses
 */
 document.onkeyup = function(event){
+    //press enter to start a new game
+    if ((event.keyCode === 13) && (newGame)) {
+        guessWord();
+        newGame = false;
+    }
     //convert key press into string and save it into a var
     var letter = String.fromCharCode(event.keyCode).toLowerCase();
     if (atoz.indexOf(letter) !== -1) {
-        console.log(letter);
         processInput(letter);
     }
+    
+    //guessWord();
 };
 guessWord();
+newGame = false;
