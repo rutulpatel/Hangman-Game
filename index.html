@@ -17,31 +17,41 @@
             <h1>Hangman</h1>
             <h3>A word guessing javascript game</h3>
         </div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="col-md-12">
                 <div class="hm-container">
-                    <div class="" id="hm-horizontal-line"></div>
-                    <div class="" id="hm-head"></div>
-                    <div class="" id="hm-body"></div>
-                    <div class="" id="hm-hand1"></div>
-                    <div class="" id="hm-hand2"></div>
-                    <div class="" id="hm-leg1"></div>
-                    <div class="" id="hm-leg2"></div>
-                    <div class="" id="hm-help-text">HELP!!!</div>
-                    <div class="" id="hm-help-line"></div>
-                    <div class="" id="hm-stand-line"></div>
-                    <div class="" id="hm-base-line"></div>
+                    <div class="hm-base-line" id="hm-base-line"></div>
+                    <div class="hm-stand-line" id="hm-stand-line"></div>
+                    <div class="hm-horizontal-line" id="hm-horizontal-line"></div>
+                    <div class="hm-head" id="hm-head"></div>
+                    <div class="hm-body" id="hm-body"></div>
+                    <div class="hm-hand1" id="hm-hand1"></div>
+                    <div class="hm-hand2" id="hm-hand2"></div>
+                    <div class="hm-leg1" id="hm-leg1"></div>
+                    <div class="hm-leg2" id="hm-leg2"></div>
+                    <div class="hm-help-text" id="hm-help-text">HELP god this is too mcuh!!!</div>
+                    <div class="hm-help-line" id="hm-help-line"></div>
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="col-md-12">
                 <div class="keys-container text-center">
-                    <h3>Guess the letters...</h3>
-                    <h3><span class="word-dashes" id="word_dashes"></span></h3>
-                    <div class="container">
+                    <h3>Guess the word...</h3>
+                    <h3><span class="word-dashes" id="wordDashes"></span></h3>
+                    <div class="container-fluid text-left">
+                        <h3>Message: <span id="msg"></span></h3>
+                    </div>
+                    <div class="container-fluid text-left">
+                        <h3>Guesses made: <span id="guessesMade"></span></h3>
+                    </div>
+    
+                    <div class="container-fluid text-left">
+                        <h3>Guesses Left: <span id="guessesLeft"></span></h3>
+                    </div>
+                    <div class="container-fluid text-left">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <h3 class="text-left">Wins: <span id="winCount"></span></h3>
+                            <h3>Wins: <span id="winCount"></span></h3>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <h3>Losses: <span id="lossCount"></span></h3>

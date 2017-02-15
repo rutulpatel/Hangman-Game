@@ -14,6 +14,10 @@ h1, h2, h3 {
     font-family: 'Bungee Shade', cursive;
 }
 
+.container, .container-fluid {
+    border: 0.5px dashed white;
+}
+
 
 .hm-container {
     max-width: auto;
@@ -24,7 +28,6 @@ h1, h2, h3 {
     font-family: 'Nothing You Could Do', cursive;
     font-weight: 700;
     padding: 15px;
-    border: 3px dashed yellowgreen;
 }
 
 #hm-help-text {
@@ -32,6 +35,7 @@ h1, h2, h3 {
     font-size: 30px;
     color: red;
     position: absolute;
+    width: auto;
 }
 
 #hm-help-line {
@@ -154,4 +158,18 @@ h1, h2, h3 {
 .word-dashes {
     color: #fff;
     font-size: 36px;
+    line-height: normal;
+    letter-spacing: 20px;
+}
+
+#guessesLeft, #guessesMade, #msg {
+    color: deepskyblue;
+}
+
+#winCount {
+    color: greenyellow;
+}
+
+#lossCount {
+    color: red;
 }
