@@ -1,4 +1,5 @@
 //Variables definition & initiation
+
 var wordList = [
     "BANANA",
     "APPLE",
@@ -33,8 +34,14 @@ var winCountID = "winCount";
 var lossCountID = "lossCount";
 var guessesLeftID = "guessesLeft";
 
-
-
+var correctTune = document.createElement("audio");
+correctTune.setAttribute("src", "assets/music/correct.mp3");
+var mistakeTune = document.createElement("audio");
+mistakeTune.setAttribute("src", "assets/music/mistake.mp3");
+var winTune = document.createElement("audio");
+winTune.setAttribute("src", "assets/music/win.wav");
+var loseTune = document.createElement("audio");
+loseTune.setAttribute("src", "assets/music/lose.wav");
 
 /**
     hide/show hangman parts by id    
@@ -109,11 +116,13 @@ function guessWord() {
 function updateGameCounter(isWon) {
     if(isWon) {
         winCount++;
+        winTune.play();
         msg = "<strong>Congrats you won!!!</strong>; press ENTER to play another game. ";
         updateElementById(msgID, msg);
         updateElementById("hm-help-text", "YOU ARE AWESOME!!!");
     } else {
         lossCount++;
+        loseTune.play();
         msg = "<strong>Sorry, you lost</strong>; secret word was '" + secretWord.toUpperCase() + "'; press ENTER to play another game. ";
         updateElementById(msgID, msg);
     }
@@ -136,6 +145,9 @@ function updateWord(letter) {
     displayedWord = tempdisplayWord.join("");
     console.log(displayedWord);
     console.log(secretWord);
+    correctTune.pause();
+    correctTune.currentTime = 0;
+    correctTune.play();
     updateElementById(wordDashesID, displayedWord);
     updateElementById(msgID, "Good guess...");
     if (displayedWord == secretWord) {
@@ -159,6 +171,9 @@ function updateGuessesLeft(letter) {
         updateElementById(guessesLeftID, guessesLeft);
         updateGameCounter(false);
     } else {
+        mistakeTune.pause();
+        mistakeTune.currentTime = 0;
+        mistakeTune.play();
         updateElementById(guessesLeftID, guessesLeft);
         updateElementById(guessesMadeID, guessesMade);
     }
