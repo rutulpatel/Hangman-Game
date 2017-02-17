@@ -2,13 +2,86 @@
 
 var hangMan = {
     wordList : [
-        "BANANA",
-        "APPLE",
-        "GUAVA",
-        "CHERRY",
-        "MANGO",
-        "PINEAPPLE",
-        "STRAWBERRY"
+        "apple",
+        "apricot",
+        "avocado",
+        "banana",
+        "bell pepper",
+        "bilberry",
+        "blackberry",
+        "blackcurrant",
+        "blood orange",
+        "blueberry",
+        "boysenberry",
+        "breadfruit",
+        "canary melon",
+        "cantaloupe",
+        "cherimoya",
+        "cherry",
+        "chili pepper",
+        "clementine",
+        "cloudberry",
+        "coconut",
+        "cranberry",
+        "cucumber",
+        "currant",
+        "damson",
+        "date",
+        "dragonfruit",
+        "durian",
+        "eggplant",
+        "elderberry",
+        "feijoa",
+        "fig",
+        "goji berry",
+        "gooseberry",
+        "grape",
+        "grapefruit",
+        "guava",
+        "honeydew",
+        "huckleberry",
+        "jackfruit",
+        "jambul",
+        "jujube",
+        "kiwi fruit",
+        "kumquat",
+        "lemon",
+        "lime",
+        "loquat",
+        "lychee",
+        "mandarine",
+        "mango",
+        "mulberry",
+        "nectarine",
+        "nut",
+        "olive",
+        "orange",
+        "pamelo",
+        "papaya",
+        "passionfruit",
+        "peach",
+        "pear",
+        "persimmon",
+        "physalis",
+        "pineapple",
+        "plum",
+        "pomegranate",
+        "pomelo",
+        "purple mangosteen",
+        "quince",
+        "raisin",
+        "rambutan",
+        "raspberry",
+        "redcurrant",
+        "rock melon",
+        "salal berry",
+        "satsuma",
+        "star fruit",
+        "strawberry",
+        "tamarillo",
+        "tangerine",
+        "ugli fruit",
+        "watermelon"
     ],
     secretWord : "",
     displayedWord : "",
@@ -83,7 +156,7 @@ var hangMan = {
     Guess a word from wordList
     */
     guessWord : function() {
-        this.secretWord = this.wordList[Math.floor(Math.random() * this.wordList.length)];
+        this.secretWord = this.wordList[Math.floor(Math.random() * this.wordList.length)].toUpperCase();
         console.log(this.secretWord);
         this.resetGame(this.secretWord.length);
     },
@@ -172,6 +245,13 @@ hangMan.correctTune.setAttribute("src", "assets/music/correct.mp3");
 hangMan.mistakeTune.setAttribute("src", "assets/music/mistake.mp3");
 hangMan.winTune.setAttribute("src", "assets/music/win.wav");
 hangMan.loseTune.setAttribute("src", "assets/music/lose.wav");
+
+
+var reader = new FileReader();
+reader.onload = function(event) {
+    
+}
+
 /**
     listen to key presses
 */
