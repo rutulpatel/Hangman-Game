@@ -1,217 +1,196 @@
 //Variables definition & initiation
 
-var wordList = [
-    "BANANA",
-    "APPLE",
-    "GUAVA",
-    "CHERRY",
-    "MANGO",
-    "PINEAPPLE",
-    "STRAWBERRY"
-];
-var secretWord = "";
-var displayedWord = "";
-var winCount = 0;
-var lossCount = 0;
-var guessesMade = [];
-var atoz = "abcdefghijklmnopqrstuvwxyz";
-var guessesLeft = 9;
-var msg = "";
-var newGame = true;
-var hangmanHelpMsgList = [
-    "DEAD!!!", 
-    "DO YOU HAVE ANY LAST WORDS",
-    "PLS HELP",
-    "NOT AGAIN",
-    "DUMB GUESS!",
-    "OH NO..."
-];
-
-var wordDashesID = "wordDashes";
-var msgID = "msg";
-var guessesMadeID = "guessesMade";
-var winCountID = "winCount";
-var lossCountID = "lossCount";
-var guessesLeftID = "guessesLeft";
-
-var correctTune = document.createElement("audio");
-correctTune.setAttribute("src", "assets/music/correct.mp3");
-var mistakeTune = document.createElement("audio");
-mistakeTune.setAttribute("src", "assets/music/mistake.mp3");
-var winTune = document.createElement("audio");
-winTune.setAttribute("src", "assets/music/win.wav");
-var loseTune = document.createElement("audio");
-loseTune.setAttribute("src", "assets/music/lose.wav");
-
-/**
-    hide/show hangman parts by id    
-*/
-function showHangmanParts(id, isVisible) {
-    if (isVisible) {
-        document.getElementById(id).style.visibility = 'visible';    
-    } else {
-        document.getElementById(id).style.visibility = 'hidden';
-    }   
-}
-
-/**
-    update html elements by id
-*/
-function updateElementById(id, msg) {
-    document.getElementById(id).innerHTML = msg; //updates html element
-}
-
-/**
-    update hangman sketch
-*/
-function updateHangman(guessesLeft) {
-    if(guessesLeft >= 9) {
-        for (var i = 1; i <= 9; i++) {
-            showHangmanParts("hm-" + i, false);
-            showHangmanParts("hm-help-text", false);
-            showHangmanParts("hm-help-line", false);
+var hangMan = {
+    wordList : [
+        "BANANA",
+        "APPLE",
+        "GUAVA",
+        "CHERRY",
+        "MANGO",
+        "PINEAPPLE",
+        "STRAWBERRY"
+    ],
+    secretWord : "",
+    displayedWord : "",
+    winCount : 0,
+    lossCount : 0,
+    guessesMade : [],
+    atoz : "abcdefghijklmnopqrstuvwxyz",
+    guessesLeft : 9,
+    msg : "",
+    newGame : true,
+    hangmanHelpMsgList : [
+        "DEAD!!!", 
+        "DO YOU HAVE ANY LAST WORDS",
+        "PLS HELP",
+        "NOT AGAIN",
+        "DUMB GUESS!",
+        "OH NO..."
+    ],
+    wordDashesID : "wordDashes",
+    msgID : "msg",
+    guessesMadeID : "guessesMade",
+    winCountID : "winCount",
+    lossCountID : "lossCount",
+    guessesLeftID : "guessesLeft",
+    correctTune : document.createElement("audio"),
+    loseTune : document.createElement("audio"),
+    mistakeTune : document.createElement("audio"),
+    winTune : document.createElement("audio"),
+    showHangmanParts : function(id, isVisible) {
+        if (isVisible) {
+            document.getElementById(id).style.visibility = 'visible';    
+        } else {
+            document.getElementById(id).style.visibility = 'hidden';
+        }   
+    },
+    updateElementById : function(id, msg) {
+        document.getElementById(id).innerHTML = msg; //updates html element
+    },
+    updateHangman : function() {
+        if(this.guessesLeft >= 9) {
+            for (var i = 1; i <= 9; i++) {
+                this.showHangmanParts("hm-" + i, false);
+                this.showHangmanParts("hm-help-text", false);
+                this.showHangmanParts("hm-help-line", false);
+            }
+        } else {
+            this.showHangmanParts("hm-"+(9-this.guessesLeft), true);
+            if(this.guessesLeft < 6) {
+                this.showHangmanParts("hm-help-text", true);
+                this.showHangmanParts("hm-help-line", true);
+                this.updateElementById("hm-help-text", this.hangmanHelpMsgList[this.guessesLeft]);
+            }
         }
-    } else {
-        showHangmanParts("hm-"+(9-guessesLeft), true);
-        if(guessesLeft < 6) {
-            showHangmanParts("hm-help-text", true);
-            showHangmanParts("hm-help-line", true);
-            updateElementById("hm-help-text", hangmanHelpMsgList[guessesLeft]);
+    },
+    resetGame : function(wordLen) {
+        var dashesStr = "";
+        for (var i = 0; i < wordLen; i++) {
+            dashesStr += "_";
         }
-    }
-}
-
-/**
-    reset game data to initial stage
-*/
-function resetGame(wordLen) {
-    var dashesStr = "";
-    for (var i = 0; i < wordLen; i++) {
-        dashesStr += "_";
-    }
-    displayedWord = dashesStr;
-    guessesLeft = 9;
-    guessesMade = [];
-    updateElementById(wordDashesID, dashesStr);
-    updateElementById(winCountID, winCount);
-    updateElementById(lossCountID, lossCount);
-    updateElementById(guessesMadeID, guessesMade);
-    updateElementById(guessesLeftID, guessesLeft);
-    updateElementById(msgID, "Good luck..." );
-    updateHangman(guessesLeft);
-}
-
-/**
+        this.displayedWord = dashesStr;
+        this.guessesLeft = 9;
+        this.guessesMade = [];
+        this.updateElementById(this.wordDashesID, dashesStr);
+        this.updateElementById(this.winCountID, this.winCount);
+        this.updateElementById(this.lossCountID, this.lossCount);
+        this.updateElementById(this.guessesMadeID, this.guessesMade);
+        this.updateElementById(this.guessesLeftID, this.guessesLeft);
+        this.updateElementById(this.msgID, "Good luck..." );
+        this.updateHangman();
+    },
+    /**
     Guess a word from wordList
-*/
-function guessWord() {
-    secretWord = wordList[Math.floor(Math.random() * wordList.length)];
-    console.log(secretWord);
-    resetGame(secretWord.length);
-}
-
-/**
+    */
+    guessWord : function() {
+        this.secretWord = this.wordList[Math.floor(Math.random() * this.wordList.length)];
+        console.log(this.secretWord);
+        this.resetGame(this.secretWord.length);
+    },
+    /**
     win/loss counter incrementor and decrementor
 */
-function updateGameCounter(isWon) {
-    if(isWon) {
-        winCount++;
-        winTune.play();
-        msg = "<strong>Congrats you won!!!</strong>; press ENTER to play another game. ";
-        updateElementById(msgID, msg);
-        updateElementById("hm-help-text", "YOU ARE AWESOME!!!");
-    } else {
-        lossCount++;
-        loseTune.play();
-        msg = "<strong>Sorry, you lost</strong>; secret word was '" + secretWord.toUpperCase() + "'; press ENTER to play another game. ";
-        updateElementById(msgID, msg);
-    }
-    updateElementById(winCountID, winCount);
-    updateElementById(lossCountID, lossCount);
-    newGame = true;
-}
-
-/**
-    update displayWord with correct guess
-*/
-function updateWord(letter) {
-    var tempdisplayWord = displayedWord.split("");
-    console.log(tempdisplayWord);
-    for(var i = 0; i < secretWord.length; i++) {
-        if(secretWord[i] === letter) {
-            tempdisplayWord[i] = letter;
+    updateGameCounter : function(isWon) {
+        if(isWon) {
+            this.winCount++;
+            this.winTune.play();
+            this.msg = "<strong>Congrats you won!!!</strong>; press ENTER to play another game. ";
+            this.updateElementById(this.msgID, this.msg);
+            this.updateElementById("hm-help-text", "AWESOME!!!");
+        } else {
+            this.lossCount++;
+            this.loseTune.play();
+            this.msg = "<strong>Sorry, you lost</strong>; secret word was '" + this.secretWord.toUpperCase() + "'; press ENTER to play another game. ";
+            this.updateElementById(this.msgID, this.msg);
         }
-    } 
-    displayedWord = tempdisplayWord.join("");
-    console.log(displayedWord);
-    console.log(secretWord);
-    correctTune.pause();
-    correctTune.currentTime = 0;
-    correctTune.play();
-    updateElementById(wordDashesID, displayedWord);
-    updateElementById(msgID, "Good guess...");
-    if (displayedWord == secretWord) {
-        updateGameCounter(true);
-    }
-}
-
-/**
+        this.updateElementById(this.winCountID, this.winCount);
+        this.updateElementById(this.lossCountID, this.lossCount);
+        this.newGame = true;
+    },
+    /**
+    update displayWord with correct guess
+    */
+    updateWord : function(letter) {
+        var tempdisplayWord = this.displayedWord.split("");
+        console.log(tempdisplayWord);
+        for(var i = 0; i < this.secretWord.length; i++) {
+            if(this.secretWord[i] === letter) {
+                tempdisplayWord[i] = letter;
+            }
+        } 
+        this.displayedWord = tempdisplayWord.join("");
+        console.log(this.displayedWord);
+        console.log(this.secretWord);
+        this.correctTune.pause();
+        this.correctTune.currentTime = 0;
+        this.correctTune.play();
+        this.updateElementById(this.wordDashesID, this.displayedWord);
+        this.updateElementById(this.msgID, "Good guess...");
+        if (this.displayedWord == this.secretWord) {
+            this.updateGameCounter(true);
+        }
+    },
+    
+    /**
     update guesses left for incorrect guesses
-*/
-function updateGuessesLeft(letter) {
-    if(guessesMade.indexOf(letter) === -1) {
-        console.log("GM:"+guessesMade);
-        guessesMade.push(letter);
-        guessesLeft--;
-        updateElementById(msgID, "Wrong guess, sorry...");
-    } else {
-        updateElementById(msgID, "You already guessed '" + letter.toUpperCase() + "'");
-    }
-    if (guessesLeft < 1) {
-        updateElementById(guessesLeftID, guessesLeft);
-        updateGameCounter(false);
-    } else {
-        mistakeTune.pause();
-        mistakeTune.currentTime = 0;
-        mistakeTune.play();
-        updateElementById(guessesLeftID, guessesLeft);
-        updateElementById(guessesMadeID, guessesMade);
-    }
-    updateHangman(guessesLeft);
-}
-
-
-/**
+    */
+    updateGuessesLeft : function(letter) {
+        if(this.guessesMade.indexOf(letter) === -1) {
+            console.log("GM:"+this.guessesMade);
+            this.guessesMade.push(letter);
+            this.guessesLeft--;
+            this.updateElementById(this.msgID, "Wrong guess, sorry...");
+        } else {
+            this.updateElementById(this.msgID, "You already guessed '" + letter.toUpperCase() + "'");
+        }
+        if (this.guessesLeft < 1) {
+            this.updateElementById(this.guessesLeftID, this.guessesLeft);
+            this.updateGameCounter(false);
+        } else {
+            this.mistakeTune.pause();
+            this.mistakeTune.currentTime = 0;
+            this.mistakeTune.play();
+            this.updateElementById(this.guessesLeftID, this.guessesLeft);
+            this.updateElementById(this.guessesMadeID, this.guessesMade);
+        }
+        this.updateHangman();
+    },
+    /**
     listen to input and process them
-*/
-function processInput(letter) {
-    if(secretWord.indexOf(letter) !== -1) {
-        updateWord(letter);
-    } else {
-        updateGuessesLeft(letter);
+    */
+    processInput : function(letter) {
+        if(this.secretWord.indexOf(letter) !== -1) {
+            this.updateWord(letter);
+        } else {
+            this.updateGuessesLeft(letter);
+        }
     }
-}
 
+};
 
+hangMan.correctTune.setAttribute("src", "assets/music/correct.mp3");
+hangMan.mistakeTune.setAttribute("src", "assets/music/mistake.mp3");
+hangMan.winTune.setAttribute("src", "assets/music/win.wav");
+hangMan.loseTune.setAttribute("src", "assets/music/lose.wav");
 /**
     listen to key presses
 */
 document.onkeyup = function(event){
     //press enter to start a new game
-    if ((event.keyCode === 13) && (newGame)) {
-        guessWord();
-        newGame = false;
+    if ((event.keyCode === 13) && (hangMan.newGame)) {
+        hangMan.guessWord();
+        hangMan.newGame = false;
     }
     //convert key press into string and save it into a var
-    if(!newGame) {
+    if(!hangMan.newGame) {
         var letter = String.fromCharCode(event.keyCode).toLowerCase();
-        if (atoz.indexOf(letter) !== -1) {
-            processInput(letter.toUpperCase());
+        if (hangMan.atoz.indexOf(letter) !== -1) {
+            hangMan.processInput(letter.toUpperCase());
         }    
     }
     
     
     //guessWord();
 };
-guessWord();
-newGame = false;
+hangMan.guessWord();
+hangMan.newGame = false;
