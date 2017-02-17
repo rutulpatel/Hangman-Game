@@ -19,7 +19,7 @@ var guessesLeft = 9;
 var msg = "";
 var newGame = true;
 var hangmanHelpMsgList = [
-    "U KILLED ME!!!", 
+    "DEAD!!!", 
     "DO YOU HAVE ANY LAST WORDS",
     "PLS HELP",
     "NOT AGAIN",
