@@ -136,10 +136,14 @@ var hangMan = {
             }
         }
     },
-    resetGame : function(wordLen) {
+    resetGame : function(word) {
         var dashesStr = "";
-        for (var i = 0; i < wordLen; i++) {
-            dashesStr += "_";
+        for (var i = 0; i < word.length; i++) {
+            if(word[i] === " ") {
+                dashesStr += " ";
+            } else {
+                dashesStr += "_";
+            }
         }
         this.displayedWord = dashesStr;
         this.guessesLeft = 9;
@@ -157,8 +161,9 @@ var hangMan = {
     */
     guessWord : function() {
         this.secretWord = this.wordList[Math.floor(Math.random() * this.wordList.length)].toUpperCase();
+        //this.secretWord = this.wordList[4].toUpperCase();
         console.log(this.secretWord);
-        this.resetGame(this.secretWord.length);
+        this.resetGame(this.secretWord);
     },
     /**
     win/loss counter incrementor and decrementor
