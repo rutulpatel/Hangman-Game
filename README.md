@@ -2,7 +2,7 @@
 The word guessing game
 
 ## Working Link
-[Click here to open the game](https://rutulpatel.github.io/Hangman-Game/){:target="_blank"}
+<a href="https://rutulpatel.github.io/Hangman-Game/" target="_blank">Click here to open the game</a>
 
 ##Technologies Used
 - HTML
